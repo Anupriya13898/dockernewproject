@@ -12,24 +12,24 @@ stages:
   displayName: Build image
   jobs:
   - job: Build
-    displayName: Build
+    displayName: Build and Push Docker Image
     pool:
       vmImage: ubuntu-latest
     steps:
     - task: Docker@2
-      displayName: Build an image
+      displayName: Build Docker Image
       inputs:
-        command: build
+        command: 'build'
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
-          
+        containerRegistry: 'docker'  # Ensure this matches your registry service connection name
+
     - task: Docker@2
-      displayName: Push image
+      displayName: Push Docker Image
       inputs:
-        command: buildAndPush
-        containerRegistry: 'docker'
+        command: 'push'
+        containerRegistry: 'docker'  # Ensure this matches your registry service connection name
         repository: 'anupriya/demo'
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
