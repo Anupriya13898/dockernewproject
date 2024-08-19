@@ -30,6 +30,6 @@ stages:
       inputs:
         command: 'push'
         containerRegistry: 'docker'  # Ensure this matches your registry service connection name
-        repository: 'anupriya/demo'
+        repository: 'anupriya/test'
         tags: |
           $(tag)
